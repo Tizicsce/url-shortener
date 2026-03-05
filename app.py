@@ -158,7 +158,7 @@ Just paste any URL starting with http:// or https://"""
             buttons = {
                 'inline_keyboard': [
                     [{'text': '🔗 Open Link', 'url': short_url}],
-                    [{'text': '📊 View Stats', 'url': f'{host}api/stats/{short_code}'}]
+                    [{'text': '📊 View Stats', 'url': f'{base_url}/api/stats/{short_code}'}]
                 ]
             }
             
