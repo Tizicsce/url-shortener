@@ -13,7 +13,7 @@ DATABASE = 'urls.db'
 # Telegram Config
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN', '')
 TELEGRAM_WEBHOOK = os.getenv('TELEGRAM_WEBHOOK', '')
-BOT_USERNAME = 'urlshortener_ai_bot'
+BOT_USERNAME = 'Shortener2_bot'
 
 # ========== DATABASE FUNCTIONS ==========
 
