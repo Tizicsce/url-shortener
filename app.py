@@ -74,6 +74,9 @@ def handle_telegram_update(update):
     text = message.get('text', '')
     user_id = str(message['from']['id'])
     
+    # Get base URL from webhook or use default
+    base_url = TELEGRAM_WEBHOOK.replace('/webhook', '') if TELEGRAM_WEBHOOK else 'https://web-production-5abe3.up.railway.app'
+    
     # Start command
     if text == '/start':
         welcome = """👋 <b>Welcome to URL Shortener Bot!</b>
@@ -149,10 +152,7 @@ Just paste any URL starting with http:// or https://"""
             conn.commit()
             
             # Get short URL
-            host = TELEGRAM_WEBHOOK.replace('/webhook', '') if TELEGRAM_WEBHOOK else request.host_url
-            if not host:
-                host = 'https://url-shortener.up.railway.app/'
-            short_url = f"{host}{short_code}"
+            short_url = f"{base_url}/{short_code}"
             
             # Send success message with buttons
             buttons = {
@@ -178,10 +178,7 @@ Just paste any URL starting with http:// or https://"""
             # URL already exists
             existing = conn.execute('SELECT short_code FROM urls WHERE original_url = ?', (text,)).fetchone()
             if existing:
-                host = TELEGRAM_WEBHOOK.replace('/webhook', '') if TELEGRAM_WEBHOOK else request.host_url
-                if not host:
-                    host = 'https://url-shortener.up.railway.app/'
-                short_url = f"{host}{existing['short_code']}"
+                short_url = f"{base_url}/{existing['short_code']}"
                 
                 response = f"""ℹ️ <b>This URL is already shortened!</b>
 
@@ -330,7 +327,7 @@ HTML_TEMPLATE = '''
             <button onclick="copyUrl()" style="margin-top: 10px;">📋 Copy</button>
         </div>
         
-        <a href="https://t.me/urlshortener_ai_bot" class="telegram-btn" target="_blank">
+        <a href="https://t.me/Shortener2_bot" class="telegram-btn" target="_blank">
             🤖 Open Telegram Bot
         </a>
         
